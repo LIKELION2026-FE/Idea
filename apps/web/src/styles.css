@@ -179,6 +179,7 @@ h1 span { color: var(--rausch); }
 
 form { display: grid; gap: 17px; }
 label { display: grid; gap: 8px; color: var(--ink); font-size: 13px; font-weight: 600; line-height: 1.35; }
+.field-label { color: var(--ink); font-size: 13px; font-weight: 600; }
 .optional { color: var(--muted); font-size: 11px; font-weight: 400; }
 input, textarea, select {
   width: 100%;
@@ -193,6 +194,7 @@ input, textarea, select {
 }
 input, select { height: 46px; padding: 0 13px; }
 textarea { min-height: 84px; padding: 12px 13px; resize: vertical; line-height: 1.55; }
+.freeform-field textarea { min-height: 236px; line-height: 1.7; }
 input::placeholder, textarea::placeholder { color: #9a9a9a; }
 input:focus, textarea:focus, select:focus { border-color: var(--rausch); box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.12); }
 
@@ -210,6 +212,11 @@ input:focus, textarea:focus, select:focus { border-color: var(--rausch); box-sha
 .primary-button:hover { background: var(--rausch-dark); transform: translateY(-1px); }
 .privacy-note { margin: 17px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
 
+.track-picker { display: grid; gap: 8px; }
+.track-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+.track-choices button { min-height: 34px; padding: 0 11px; border: 1px solid var(--line); border-radius: 999px; background: #ffffff; color: var(--muted); font-size: 11px; font-weight: 600; }
+.track-choices button:hover, .track-choices button.selected { border-color: var(--rausch); background: #fff7f8; color: var(--rausch-dark); }
+
 .board-panel { min-width: 0; }
 .board-heading { align-items: flex-end; margin-bottom: 24px; padding-bottom: 17px; border-bottom: 1px solid var(--line); }
 .board-count { color: var(--muted); font-size: 13px; font-weight: 600; }
@@ -225,6 +232,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--rausch); box-sha
 .author { flex: 0 0 auto; color: var(--muted); font-size: 11px; line-height: 1.5; text-align: right; }
 
 .idea-facts { display: grid; grid-template-columns: minmax(150px, 0.45fr) minmax(0, 1fr); gap: 20px; padding: 20px 0; }
+.idea-facts.freeform { grid-template-columns: 1fr; }
 .idea-facts > div, .supporting-fact { display: grid; gap: 7px; }
 .idea-facts span, .supporting-fact span, .refined-problem span { color: var(--muted); font-size: 11px; font-weight: 700; }
 .idea-facts strong, .idea-facts p, .supporting-fact p { margin: 0; color: var(--body); font-size: 14px; line-height: 1.6; }

@@ -31,10 +31,6 @@ export interface Idea {
 }
 
 export interface IdeaForm {
-  title: string;
-  track: Track;
-  targetUser: string;
-  problem: string;
-  currentSolution: string;
-  evidence: string;
+  note: string;
+  track: Track | '';
 }

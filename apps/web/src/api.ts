@@ -24,9 +24,23 @@ export function getIdeas(track: Track | 'all' = 'all'): Promise<Idea[]> {
 }
 
 export function createIdea(memberId: string, idea: IdeaForm): Promise<Idea> {
+  const note = idea.note.trim();
+  const firstLine = note.split(/\r?\n/).map((line) => line.trim()).find(Boolean) || '아이디어 메모';
+  const title = firstLine.length > 44 ? `${firstLine.slice(0, 44).trim()}…` : firstLine;
+
   return request<Idea>('/ideas', {
     method: 'POST',
-    body: JSON.stringify({ memberId, idea }),
+    body: JSON.stringify({
+      memberId,
+      idea: {
+        title,
+        track: idea.track || 'open',
+        targetUser: '아직 정하지 않았어요',
+        problem: note,
+        currentSolution: '',
+        evidence: '',
+      },
+    }),
   });
 }
 

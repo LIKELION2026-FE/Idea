@@ -13,12 +13,8 @@ const TRACKS: Array<{ id: Track | 'all'; label: string; short: string }> = [
 ];
 
 const EMPTY_FORM: IdeaForm = {
-  title: '',
-  track: 'lion',
-  targetUser: '',
-  problem: '',
-  currentSolution: '',
-  evidence: '',
+  note: '',
+  track: '',
 };
 
 function IdeaBoardPage() {
@@ -55,8 +51,8 @@ function IdeaBoardPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!selectedMember) return setMessage('작성할 팀원을 먼저 선택해 주세요.');
-    if (!form.title.trim() || !form.targetUser.trim() || !form.problem.trim()) {
-      return setMessage('아이디어 제목, 타깃 사용자, 문제를 먼저 적어 주세요.');
+    if (!form.note.trim()) {
+      return setMessage('생각나는 내용을 한 줄이라도 적어 주세요.');
     }
 
     setSubmitting(true);
@@ -106,7 +102,7 @@ function IdeaBoardPage() {
           <div className="hero-copy">
             <p className="eyebrow">TEAM IDEA BOARD</p>
             <h1>아이디어를 꺼내고,<br /><span>같이 더 선명하게 만들어요.</span></h1>
-            <p>완성된 기획이 아니어도 괜찮아요. 떠오른 문제를 적으면 팀원과 AI가 다음 질문을 찾아드려요.</p>
+            <p>완성된 기획이 아니어도 괜찮아요. 떠오른 생각을 남기면 팀원과 AI가 다음 실마리를 찾아드려요.</p>
           </div>
           <div className="hero-side">
             <div className="hero-rule" />
@@ -121,38 +117,30 @@ function IdeaBoardPage() {
               <div><p className="eyebrow">NEW IDEA</p><h2>아이디어 적기</h2></div>
               <span className="step-badge">01</span>
             </div>
-            <p className="panel-intro">지금 떠오르는 만큼만 적어도 돼요. 문제를 먼저 적으면 AI가 빈틈을 찾아드려요.</p>
+            <p className="panel-intro">정리되지 않은 생각도 괜찮아요. 떠오르는 대로 툭 던져 주세요.</p>
 
             <form onSubmit={handleSubmit}>
-              <label>누가 적고 있나요?
+              <label>작성자
                 <select value={selectedMember} onChange={(event) => setSelectedMember(event.target.value)}>
                   <option value="">팀원을 선택해 주세요</option>
                   {members.map((member) => <option key={member.id} value={member.id}>{member.name}</option>)}
                 </select>
               </label>
-              <label>아이디어 제목
-                <input value={form.title} onChange={(event) => updateField('title', event.target.value)} placeholder="예: 회의 합의 보정 AI" />
+              <div className="track-picker">
+                <span className="field-label">트랙 <span className="optional">선택</span></span>
+                <div className="track-choices" role="group" aria-label="트랙 선택">
+                  <button className={!form.track ? 'selected' : ''} type="button" onClick={() => updateField('track', '')}>아직 모르겠어요</button>
+                  {TRACKS.filter((track): track is { id: Track; label: string; short: string } => track.id !== 'all').map((track) => (
+                    <button className={form.track === track.id ? 'selected' : ''} key={track.id} type="button" onClick={() => updateField('track', track.id)}>{track.short}</button>
+                  ))}
+                </div>
+              </div>
+              <label className="freeform-field">브레인스토밍 메모
+                <textarea value={form.note} onChange={(event) => updateField('note', event.target.value)} placeholder="회의하다가 떠오른 생각, 불편했던 순간, 만들고 싶은 것, 아직 말이 안 되는 문장까지 그대로 적어보세요." rows={10} />
               </label>
-              <label>어느 트랙과 가까운가요?
-                <select value={form.track} onChange={(event) => updateField('track', event.target.value as Track)}>
-                  {TRACKS.filter((track) => track.id !== 'all').map((track) => <option key={track.id} value={track.id}>{track.label}</option>)}
-                </select>
-              </label>
-              <label>누가 이 문제를 겪나요?
-                <input value={form.targetUser} onChange={(event) => updateField('targetUser', event.target.value)} placeholder="예: 한국·베트남 대학생 프로젝트 팀" />
-              </label>
-              <label>어떤 문제가 생기나요?
-                <textarea value={form.problem} onChange={(event) => updateField('problem', event.target.value)} placeholder="사용자가 어떤 상황에서 무엇을 잃는지 적어 주세요." rows={4} />
-              </label>
-              <label>지금은 어떻게 해결하나요? <span className="optional">선택</span>
-                <textarea value={form.currentSolution} onChange={(event) => updateField('currentSolution', event.target.value)} placeholder="검색, 수작업, 주변 사람에게 묻기 등" rows={3} />
-              </label>
-              <label>인터뷰나 관찰 근거가 있나요? <span className="optional">선택</span>
-                <textarea value={form.evidence} onChange={(event) => updateField('evidence', event.target.value)} placeholder="누구에게 들었는지, 얼마나 자주 겪는지 적어 주세요." rows={3} />
-              </label>
-              <button className="primary-button" type="submit" disabled={submitting}>{submitting ? '저장하는 중이에요' : '아이디어 등록하기'}</button>
+              <button className="primary-button" type="submit" disabled={submitting}>{submitting ? '저장하는 중이에요' : '아이디어 툭 던지기'}</button>
             </form>
-            <p className="privacy-note">작성한 아이디어는 팀 보드에 공개돼요.</p>
+            <p className="privacy-note">등록한 메모는 팀 보드에 바로 보여요.</p>
           </aside>
 
           <section className="board-panel" aria-labelledby="board-title">
@@ -161,7 +149,7 @@ function IdeaBoardPage() {
               <span className="board-count">{visibleIdeas.length}개</span>
             </div>
             {message && <div className="status-message" role="status">{message}</div>}
-            {loading ? <div className="empty-state">아이디어를 불러오는 중이에요.</div> : visibleIdeas.length === 0 ? <div className="empty-state"><strong>아직 아이디어가 없어요.</strong><span>왼쪽에서 첫 번째 문제를 적어 주세요.</span></div> : (
+            {loading ? <div className="empty-state">아이디어를 불러오는 중이에요.</div> : visibleIdeas.length === 0 ? <div className="empty-state"><strong>아직 아이디어가 없어요.</strong><span>첫 번째 생각을 툭 던져 주세요.</span></div> : (
               <div className="idea-list">
                 {visibleIdeas.map((idea) => <IdeaCard key={idea.id} idea={idea} busy={busyIdeaId === idea.id} onAnalyze={handleAnalyze} />)}
               </div>
@@ -170,7 +158,7 @@ function IdeaBoardPage() {
         </section>
       </main>
 
-      <footer className="footer"><div className="container"><strong>BrainStorm</strong><span>문제부터 같이 찾아볼게요.</span></div></footer>
+      <footer className="footer"><div className="container"><strong>BrainStorm</strong><span>생각부터 같이 모아볼게요.</span></div></footer>
     </div>
   );
 }
@@ -194,10 +182,11 @@ function App() {
 
 function IdeaCard({ idea, busy, onAnalyze }: { idea: Idea; busy: boolean; onAnalyze: (id: string) => void }) {
   const track = TRACKS.find((candidate) => candidate.id === idea.track);
+  const isFreeformNote = idea.targetUser === '아직 정하지 않았어요';
   return (
     <article className={`idea-card track-${idea.track}`}>
       <div className="idea-card-head"><div><span className="track-pill">{track?.label || idea.track}</span><h3>{idea.title}</h3></div><span className="author">{idea.memberName} · {new Date(idea.createdAt).toLocaleDateString('ko-KR')}</span></div>
-      <div className="idea-facts"><div><span>타깃 사용자</span><strong>{idea.targetUser}</strong></div><div><span>문제</span><p>{idea.problem}</p></div></div>
+      <div className={`idea-facts ${isFreeformNote ? 'freeform' : ''}`}>{!isFreeformNote && <div><span>타깃 사용자</span><strong>{idea.targetUser}</strong></div>}<div><span>{isFreeformNote ? '브레인스토밍 메모' : '문제'}</span><p>{idea.problem}</p></div></div>
       {idea.currentSolution && <div className="supporting-fact"><span>현재 방식</span><p>{idea.currentSolution}</p></div>}
       <AnalysisBlock idea={idea} busy={busy} onAnalyze={onAnalyze} />
     </article>

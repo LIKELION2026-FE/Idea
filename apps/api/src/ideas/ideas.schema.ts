@@ -1,6 +1,6 @@
 import { IdeaInput, Member } from './ideas.types';
 
-const TRACKS = new Set(['sjf', 'aac', 'lion', 'open']);
+const TRACKS = new Set(['sjf', 'aac', 'lion', 'open', 'unassigned']);
 
 export function validateIdeaInput(input: unknown):
   | { valid: true; value: IdeaInput }

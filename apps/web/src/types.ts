@@ -1,4 +1,4 @@
-export type Track = 'sjf' | 'aac' | 'lion' | 'open';
+export type Track = 'sjf' | 'aac' | 'lion' | 'open' | 'unassigned';
 
 export interface Member {
   id: string;

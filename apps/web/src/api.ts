@@ -34,7 +34,7 @@ export function createIdea(memberId: string, idea: IdeaForm): Promise<Idea> {
       memberId,
       idea: {
         title,
-        track: idea.track || 'open',
+        track: idea.track || 'unassigned',
         targetUser: '아직 정하지 않았어요',
         problem: note,
         currentSolution: '',

@@ -10,6 +10,7 @@ const TRACKS: Array<{ id: Track | 'all'; label: string; short: string }> = [
   { id: 'aac', label: '웰니스', short: 'AAC' },
   { id: 'lion', label: '국경을 넘는 협업', short: '협업' },
   { id: 'open', label: '검증된 문제', short: 'Open' },
+  { id: 'unassigned', label: '트랙 미정', short: '미정' },
 ];
 
 const EMPTY_FORM: IdeaForm = {

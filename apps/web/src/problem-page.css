@@ -30,9 +30,9 @@
 .problem-nav-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
 .problem-nav-link { padding: 8px 12px; color: var(--problem-body); font-size: 13px; font-weight: 500; }
 .problem-nav-link:hover { text-decoration: underline; text-underline-offset: 4px; }
-.problem-nav-cta, .problem-primary-action, .problem-footer-cta { border-radius: 8px; background: var(--problem-primary); color: #ffffff; font-size: 13px; font-weight: 700; }
+.problem-nav-cta, .problem-primary-action, .problem-footer-cta { border-radius: 8px; background: var(--problem-primary); color: #ffffff !important; font-size: 13px; font-weight: 700; text-decoration: none; }
 .problem-nav-cta { padding: 10px 14px; }
-.problem-nav-cta:hover, .problem-primary-action:hover, .problem-footer-cta:hover { background: #d9324f; color: #ffffff; text-decoration: none; }
+.problem-nav-cta:hover, .problem-primary-action:hover, .problem-footer-cta:hover { background: #d9324f; color: #ffffff !important; text-decoration: none; }
 
 .problem-hero { padding: 56px 0 40px; }
 .problem-hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); align-items: end; gap: 80px; }

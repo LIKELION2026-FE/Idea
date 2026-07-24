@@ -130,7 +130,6 @@ function IdeaBoardPage() {
               <div className="track-picker">
                 <span className="field-label">트랙 <span className="optional">선택</span></span>
                 <div className="track-choices" role="group" aria-label="트랙 선택">
-                  <button className={!form.track ? 'selected' : ''} type="button" onClick={() => updateField('track', '')}>아직 모르겠어요</button>
                   {TRACKS.filter((track): track is { id: Track; label: string; short: string } => track.id !== 'all').map((track) => (
                     <button className={form.track === track.id ? 'selected' : ''} key={track.id} type="button" onClick={() => updateField('track', track.id)}>{track.short}</button>
                   ))}

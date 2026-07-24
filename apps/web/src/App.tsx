@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
 import { analyzeIdea, createIdea, getIdeas, getMembers } from './api';
+import { ProblemDefinitionsPage } from './ProblemDefinitionsPage';
 import type { Idea, IdeaForm, Member, Track } from './types';
 
 const TRACKS: Array<{ id: Track | 'all'; label: string; short: string }> = [
@@ -20,7 +21,7 @@ const EMPTY_FORM: IdeaForm = {
   evidence: '',
 };
 
-function App() {
+function IdeaBoardPage() {
   const [members, setMembers] = useState<Member[]>([]);
   const [ideas, setIdeas] = useState<Idea[]>([]);
   const [selectedMember, setSelectedMember] = useState('');
@@ -90,17 +91,17 @@ function App() {
     <div className="app-shell">
       <header className="top-nav">
         <div className="container nav-inner">
-          <a className="wordmark" href="#top">Brain<span>Storm</span></a>
+          <a className="wordmark" href="#home">Brain<span>Storm</span></a>
           <nav className="track-tabs" aria-label="아이디어 트랙">
             {TRACKS.map((track) => (
               <button key={track.id} className={`track-tab ${selectedTrack === track.id ? 'active' : ''}`} onClick={() => setSelectedTrack(track.id)} type="button">{track.short}</button>
             ))}
           </nav>
-          <a className="nav-link" href="#submit">아이디어 적기</a>
+          <a className="nav-link" href="#home">문제정의 보기</a>
         </div>
       </header>
 
-      <main id="top">
+      <main id="ideas">
         <section className="hero container">
           <div className="hero-copy">
             <p className="eyebrow">TEAM IDEA BOARD</p>
@@ -172,6 +173,22 @@ function App() {
       <footer className="footer"><div className="container"><strong>BrainStorm</strong><span>문제부터 같이 찾아볼게요.</span></div></footer>
     </div>
   );
+}
+
+function App() {
+  const [page, setPage] = useState<'home' | 'ideas'>(() => window.location.hash === '#ideas' ? 'ideas' : 'home');
+
+  useEffect(() => {
+    function handleHashChange() {
+      setPage(window.location.hash === '#ideas' ? 'ideas' : 'home');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  return page === 'ideas' ? <IdeaBoardPage /> : <ProblemDefinitionsPage />;
 }
 
 function IdeaCard({ idea, busy, onAnalyze }: { idea: Idea; busy: boolean; onAnalyze: (id: string) => void }) {

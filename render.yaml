@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: brainstorm-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build --workspace apps/api
+    startCommand: npm run start --workspace apps/api
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: TEAM_MEMBERS
+        value: member-1:팀원 1,member-2:팀원 2,member-3:팀원 3,member-4:팀원 4
+      - key: CORS_ORIGIN
+        sync: false

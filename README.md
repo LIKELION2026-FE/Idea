@@ -30,7 +30,7 @@ API는 `http://localhost:3001`, 웹은 보통 `http://localhost:5173`에서 실�
 Vercel 프론트엔드에는 `VITE_API_URL=https://<render-api-url>`을 설정합니다. Render API에는 아래 값을 설정합니다.
 
 ```env
-DATABASE_URL=<supabase-connection-pooler-url>
+DATABASE_URL=<supabase-session-pooler-url-with-sslmode-require>
 OPENAI_API_KEY=<openai-key>
 OPENAI_MODEL=gpt-4o-mini
 TEAM_MEMBERS=member-1:팀원 1,member-2:팀원 2,member-3:팀원 3,member-4:팀원 4
@@ -38,3 +38,5 @@ CORS_ORIGIN=https://<vercel-project-url>
 ```
 
 `DATABASE_URL`이 있으면 API가 PostgreSQL 저장소를 사용하고, 없으면 로컬 메모리 저장소로 동작합니다. `OPENAI_API_KEY`가 없으면 아이디어는 등록되지만 AI 분석은 대기 상태로 표시됩니다.
+
+Render의 상시 실행 NestJS API에는 Supabase의 Session pooler 연결 문자열(기본 5432 포트)을 사용하세요. Transaction pooler(6543)는 서버리스·엣지 환경에 맞는 연결 방식입니다.

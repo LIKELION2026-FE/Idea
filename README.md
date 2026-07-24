@@ -29,6 +29,8 @@ API는 `http://localhost:3001`, 웹은 보통 `http://localhost:5173`에서 실�
 
 Vercel 프론트엔드에는 `VITE_API_URL=https://<render-api-url>`을 설정합니다. Render API에는 아래 값을 설정합니다.
 
+Vercel의 Root Directory를 저장소 루트(`/`)로 두면 루트 `vercel.json`을 사용하고, `apps/web`으로 두면 `apps/web/vercel.json`을 사용합니다. 두 설정 모두 지원하므로 Vercel에서 Root Directory를 변경했다면 별도의 workspace 명령을 입력하지 않아도 됩니다.
+
 ```env
 DATABASE_URL=<supabase-session-pooler-url-with-sslmode-require>
 OPENAI_API_KEY=<openai-key>

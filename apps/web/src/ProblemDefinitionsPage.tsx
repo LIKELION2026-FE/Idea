@@ -61,14 +61,14 @@ export function ProblemDefinitionsPage() {
     <div className="problem-home">
       <nav className="problem-nav" aria-label="문서 메뉴">
         <div className="problem-container problem-nav-inner">
-          <a className="problem-wordmark" href="#home" aria-label="문서 처음으로 이동">문제<span>부터</span></a>
+          <a className="problem-wordmark" href="/" aria-label="문서 처음으로 이동">문제<span>부터</span></a>
           <div className="problem-product-tabs" aria-label="트랙 바로가기">
             <button className={`problem-product-tab ${activeFilter === 'all' ? 'active' : ''}`} type="button" onClick={() => selectFilter('all')}>전체 트랙</button>
             {TRACKS.map((track) => <button key={track.id} className={`problem-product-tab ${activeFilter === track.id ? 'active' : ''}`} type="button" onClick={() => selectFilter(track.id)}>{track.short}</button>)}
           </div>
           <div className="problem-nav-actions">
             <a className="problem-nav-link" href="#questions">회의 질문</a>
-            <a className="problem-nav-cta" href="#ideas">아이디어 적으러 가기</a>
+            <a className="problem-nav-cta" href="/ideas">아이디어 적으러 가기</a>
           </div>
         </div>
       </nav>
@@ -85,7 +85,7 @@ export function ProblemDefinitionsPage() {
                 <div className="problem-metric"><strong>12</strong><span>문제정의 후보</span></div>
                 <div className="problem-metric"><strong>5</strong><span>검증 질문</span></div>
               </div>
-              <a className="problem-primary-action" href="#ideas">아이디어 적으러 가기 <span aria-hidden="true">→</span></a>
+              <a className="problem-primary-action" href="/ideas">아이디어 적으러 가기 <span aria-hidden="true">→</span></a>
             </div>
             <aside className="problem-hero-note">
               <strong>이번 단계에서 정할 것</strong>
@@ -133,7 +133,7 @@ export function ProblemDefinitionsPage() {
         </section>
       </main>
 
-      <footer className="problem-footer"><div className="problem-container problem-footer-grid"><div><strong>문제부터 찾아볼게요</strong><p>멋쟁이사자처럼 14기 해커톤을 위한 팀 문제정의 문서예요.</p></div><div><strong>바로가기</strong><div className="problem-footer-links"><a href="#tracks">트랙 비교</a><a href="#problems">문제정의 후보</a><a href="#questions">회의 질문</a></div></div><div><strong>원문 가이드</strong><div className="problem-footer-links"><a href="https://likelion.notion.site/14th-hackathon-guide" target="_blank" rel="noreferrer">멋사 해커톤 가이드 ↗</a><a href="#ideas">아이디어 적으러 가기</a></div></div></div></footer>
+      <footer className="problem-footer"><div className="problem-container problem-footer-grid"><div><strong>문제부터 찾아볼게요</strong><p>멋쟁이사자처럼 14기 해커톤을 위한 팀 문제정의 문서예요.</p></div><div><strong>바로가기</strong><div className="problem-footer-links"><a href="#tracks">트랙 비교</a><a href="#problems">문제정의 후보</a><a href="#questions">회의 질문</a></div></div><div><strong>원문 가이드</strong><div className="problem-footer-links"><a href="https://likelion.notion.site/14th-hackathon-guide" target="_blank" rel="noreferrer">멋사 해커톤 가이드 ↗</a><a href="/ideas">아이디어 적으러 가기</a></div></div></div></footer>
     </div>
   );
 }

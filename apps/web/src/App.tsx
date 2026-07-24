@@ -91,13 +91,13 @@ function IdeaBoardPage() {
     <div className="app-shell">
       <header className="top-nav">
         <div className="container nav-inner">
-          <a className="wordmark" href="#home">Brain<span>Storm</span></a>
+          <a className="wordmark" href="/">Brain<span>Storm</span></a>
           <nav className="track-tabs" aria-label="아이디어 트랙">
             {TRACKS.map((track) => (
               <button key={track.id} className={`track-tab ${selectedTrack === track.id ? 'active' : ''}`} onClick={() => setSelectedTrack(track.id)} type="button">{track.short}</button>
             ))}
           </nav>
-          <a className="nav-link" href="#home">문제정의 보기</a>
+          <a className="nav-link" href="/">문제정의 보기</a>
         </div>
       </header>
 
@@ -176,11 +176,12 @@ function IdeaBoardPage() {
 }
 
 function App() {
-  const [page, setPage] = useState<'home' | 'ideas'>(() => window.location.hash === '#ideas' ? 'ideas' : 'home');
+  const isIdeasPage = () => window.location.pathname.replace(/\/+$/, '') === '/ideas' || window.location.hash === '#ideas';
+  const [page, setPage] = useState<'home' | 'ideas'>(() => isIdeasPage() ? 'ideas' : 'home');
 
   useEffect(() => {
     function handleHashChange() {
-      setPage(window.location.hash === '#ideas' ? 'ideas' : 'home');
+      setPage(isIdeasPage() ? 'ideas' : 'home');
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
